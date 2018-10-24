@@ -333,6 +333,7 @@ a security violation was found (e.g. \1.B \2-@PRESERVOPT@\1or variable\
   pc("FM_EVERY",FM_EVERY);
   pc("FM_MINFIELDS",FM_MINFIELDS);
   pn("DEFminfields",DEFminfields);
+  pc("FM_MIMEDECODE",FM_MIMEDECODE);
   pc("FM_DIGEST",FM_DIGEST);
   pc("FM_BABYL",FM_BABYL);
   pc("FM_QUIET",FM_QUIET);

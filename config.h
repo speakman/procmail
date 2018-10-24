@@ -359,13 +359,15 @@ MMGR)\
 #define FM_FIRST_UNIQ	'u'		    /* preserve the first occurrence */
 #define FM_LAST_UNIQ	'U'		     /* preserve the last occurrence */
 #define FM_ReNAME	'R'				   /* rename a field */
+#define FM_MIMEDECODE	'M'				/* decode MIME words */
 #define FM_VERSION	VERSIONOPT		/* option to display version */
 #define FM_USAGE	"\
 Usage: formail [-vbczfrktqY] [-D nnn idcache] [-p prefix] [-l folder]\n\
-\t[-xXaAiIuU field] [-R ofield nfield]\n\
+\t[-xXaAiIuU field] [-M charset] [-R ofield nfield]\n\
    Or: formail [+nnn] [-nnn] [-bczfrktedqBY] [-D nnn idcache] [-p prefix]\n\
 \t[-n [nnn]] [-m nnn] [-l folder] [-xXaAiIuU field] [-R ofield nfield]\n\
-\t-s [prg [arg ...]]\n"	    /* split up FM_HELP, token too long for some ccs */
+\t[-M charset] -s [prg [arg ...]]\n"
+/* split up FM_HELP, token too long for some ccs */
 #define FM_HELP		\
  " -v\t\tdisplay the version number and exit\
 \n -b\t\tdon't escape bogus mailbox headers\
@@ -389,4 +391,5 @@ Usage: formail [-vbczfrktqY] [-D nnn idcache] [-p prefix] [-l folder]\n\
 \n -a field\tadd if not present\t-A field\tadd in any case\
 \n -i field\trename and insert\t-I field\tdelete and insert\
 \n -u field\tfirst unique\t\t-U field\tlast unique\
-\n -R oldfield newfield\trename\n"
+\n -R oldfield newfield\trename\
+\n -M charset\tdecode mimewords with matching charset\n"

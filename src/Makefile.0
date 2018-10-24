@@ -7,7 +7,7 @@ PM_OBJ=cstdio.$(O) common.$(O) exopen.$(O) goodies.$(O) locking.$(O) \
 LF_OBJ=exopen.$(O) sublib.$(O) acommon.$(O) mcommon.$(O) authenticate.$(O) \
  lastdirsep.$(O)
 FM_OBJ=common.$(O) fields.$(O) formisc.$(O) sublib.$(O) ecommon.$(O) \
- acommon.$(O)
+ acommon.$(O) mime.$(O)
 MG_OBJ=sublib.$(O) ecommon.$(O) mcommon.$(O) hsort.$(O) lastdirsep.$(O)
 
 all:	$(BINSS)
@@ -111,6 +111,8 @@ mailfold.$(O): sublib.h robust.h shell.h misc.h pipes.h common.h exopen.h
 mailfold.$(O): variables.h locking.h mailfold.h memblk.h from.h
 
 mcommon.$(O): ../autoconf.h ../config.h includes.h mcommon.h
+
+mime.$(O): ../autoconf.h ../config.h
 
 memblk.$(O): ../autoconf.h ../config.h includes.h procmail.h shell.h
 memblk.$(O): exopen.h memblk.h

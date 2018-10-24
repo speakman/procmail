@@ -623,3 +623,7 @@
 	    More paranoia: start to use strlcpy()
 	    Generate safe temp and maildir filenames when the hostname
 	       contains / or : by mapping them to \ooo
+
+2018/10/24: v3.22EtB1
+	    Changes to formail:
+	       - added -M flag for mime word decode

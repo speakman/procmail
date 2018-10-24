@@ -1,3 +1,29 @@
+Prefix for Eli-the-Bearded procmail-formail source edition
+----------------------------------------------------------
+
+This is the procmail 3.22 distribution with modifications made to
+only formail (and formail's man page). It adds a new flag to formail
+that controls decoding of RFC 2047 MIME encoded words like:
+
+ =?CHARSET?Q?Quoted=2Dprintable_content?=
+ =?CHARSET?B?BASE64encodedContent?=
+
+To enable decoding these, specify an acceptable charset to decode.
+If your environment expects ISO-8859-1, there's no sense in trying to
+decode (e.g) GB2312 content, it will be just as much gibberish
+afterwards. Charsets are case insensitive, and because of some poorly
+considered real world usage, the words using the US-ASCII charset will
+also be decoded when either UTF-8 or ISO-8859-1 is specified.
+
+Example usage:
+
+echo "Subject: =?CHARSET?Q?Quoted=2Dprintable_content?=" | \
+	formail -x Subject -M CHARSET
+
+to extract the content of the subject line with the MIME word decoded.
+
+Below this line, the README as originally distributed.
+
 For installation instructions see the INSTALL file.
 ----------------------
 Procmail & formail mail processing package.

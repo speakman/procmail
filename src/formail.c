@@ -41,6 +41,10 @@ static const char
  Resent_[]=		"Resent-",	   /* for tweaking reply preferences */
  mdaemon[]="<>",unknown[]=UNKNOWN,re[]=" Re:",fmusage[]=FM_USAGE;
 
+char *charset;
+
+int decode_header(char*, char*,int);
+
 static const struct {const char*hedr;int lnr;}cdigest[]=
 {
 #define X(name,value)	bsl(name),
@@ -370,6 +374,7 @@ int main(lastm,argv)int lastm;const char*const argv[];
   size_t j,lnl,escaplen;char*chp,*namep,*escap=ESCAP;
   struct field*fldp,*fp2,**afldp,*fdate,*fcntlength,*fsubject,*fFrom_;
   if(lastm)			       /* sanity check, any argument at all? */
+  charset = NULL;
 #define Qnext_arg()	if(!*chp&&!(chp=(char*)*++argv))goto usg
      while(chp=(char*)*++argv)
       { if((lastm= *chp++)==FM_SKIP)
@@ -440,6 +445,8 @@ number:		 if(*chp-'0'>(unsigned)9)	    /* the number is not >=0 */
 		 continue;
 	      case FM_BERKELEY:berkeley=1;
 		 continue;
+	      case FM_MIMEDECODE:Qnext_arg();charset=chp;
+		 break;
 	      case FM_QPREFIX:Qnext_arg();escap=chp;
 		 break;
 	      case FM_VERSION:elog(formailn);elog(VERSION);
@@ -819,7 +826,7 @@ splitit:       { if(!lnl)   /* did the previous mail end with an empty line? */
       { if(split)		       /* gobble up the next start separator */
 	 { buffilled=0;
 #ifdef sMAILBOX_SEPARATOR
-	   getline();buffilled=0;		 /* but only if it's defined */
+	   Getline();buffilled=0;		 /* but only if it's defined */
 #endif
 	   if(buflast!=EOF)					   /* if any */
 	      goto splitit;

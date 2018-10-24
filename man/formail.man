@@ -48,6 +48,8 @@ formail \- mail (re)formatter
 ]]
 .RB [ \-@FM_MINFIELDS@
 .IR minfields ]
+.RB [ \-@FM_MIMEDECODE@
+.IR charset ]
 .RB [ \-@FM_SPLIT@
 .RI [ command
 .RI [ arg
@@ -166,6 +168,19 @@ Makes formail assume that it is splitting up a BABYL rmail file.
 Allows you to specify the number of consecutive headerfields formail
 needs to find before it decides it found the start of a new message, it
 defaults to @DEFminfields@.
+.TP
+.I "\fB\-@FM_MIMEDECODE@\fP charset"
+Allows you to specify a case-insenstive MIME charset for decoding
+MIME words. The MIME word standard is defined in RFC 2047 as a way to
+embed non-ASCII content in a seven-bit safe way in headers, it uses
+blocks which look like
+.I =?CHARSET?B?BASE64DATA?=
+and 
+.I =?CHARSET?Q?QP_DATA?=
+with base-64 or quoted-printable content. Since real world usage
+sometimes has US-ASCII MIME word blocks, and since US-ASCII is a
+strict subset of UTF-8 and ISO-8859-1, US-ASCII blocks will be
+decoded when decoding those charsets.
 .TP
 .B \-@FM_QUIET@
 Tells formail to (still detect but) be quiet about write errors,

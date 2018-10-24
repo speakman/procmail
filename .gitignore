@@ -1,0 +1,29 @@
+# vim swap files
+*.swp
+
+# objects
+*.o
+src/formail
+src/lockfile
+src/mailstat
+src/procmail
+src/setid
+
+# "compiled" manpages
+man/*.1
+man/*.5
+
+# misc build files
+autoconf.h
+config.check
+suid.sh
+Makefile.0
+src/realloc.log
+src/lock.log
+src/recommend
+src/Makefile.init
+man/Makefile.init
+man/man.sed*
+
+# final targets
+new/*
