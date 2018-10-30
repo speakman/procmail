@@ -166,7 +166,8 @@ must be specified on the command line.  After the rcfile, procmail will
 accept an unlimited number of arguments.@ETCRCS_desc@
 For some advanced usage of this option you should look in the
 .B EXAMPLES
-section below.@LMTPOPTdesc@.SH ARGUMENTS
+section below.@LMTPOPTdesc@
+.SH ARGUMENTS
 Any arguments containing an '=' are considered to be environment variable
 assignments, they will
 .I all
@@ -267,7 +268,6 @@ temporary `unique' zero-length files created by procmail
 .BR csh (1),
 .BR mail (1),
 .BR mailx (1),
-.BR binmail (1),
 .BR uucp (1),
 .BR aliases (5),
 .BR sendmail (8),
@@ -723,6 +723,15 @@ path.@FW_comment@
 .fi
 .ad
 .PP
+Some mailers (notably exim) do not currently accept the above syntax.
+In such case use this instead:
+.PP
+.na
+.nf
+|/usr/bin/procmail
+.fi
+.ad
+.PP
 Procmail can also be invoked to postprocess an already filled system
 mailbox.  This can be useful if you don't want to or can't use a
 $HOME/@DOT_FORWARD@ file (in which case the following script could
@@ -754,7 +763,7 @@ exit 0
 .SS "A sample small @PROCMAILRC@:"
 .na
 .nf
-PATH=/bin:/usr/bin:@BINDIR@
+PATH=/usr/local/bin:/usr/bin:/bin
 MAILDIR=$HOME/Mail      #you'd better make sure it exists
 DEFAULT=$MAILDIR/mbox   #completely optional
 LOGFILE=$MAILDIR/from   #recommended

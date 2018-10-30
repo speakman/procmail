@@ -65,7 +65,7 @@ LOCKINGTEST=__defaults__
 # Only edit below this line if you *think* you know what you are doing #
 ########################################################################
 
-#LOCKINGTEST=100	# Uncomment (and change) if you think you know
+LOCKINGTEST=100	# Uncomment (and change) if you think you know
 #			it better than the autoconf lockingtests.
 #			This will cause the lockingtests to be hotwired.
 #			100	to enable fcntl()
@@ -79,7 +79,7 @@ SEARCHLIBS = -lm -ldir -lx -lsocket -lnet -linet -lnsl_s -lnsl_i -lnsl -lsun \
 #			-lresolv	# not really needed, is it?
 
 # Informal list of directories where we look for the libraries in SEARCHLIBS
-LIBPATHS=/lib /usr/lib /usr/local/lib
+LIBPATHS=/lib /usr/lib
 
 GCC_WARNINGS = -O2 -pedantic -Wreturn-type -Wunused -Wformat -Wtraditional \
  -Wpointer-arith -Wconversion -Waggregate-return \

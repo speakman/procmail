@@ -66,7 +66,7 @@ inc:	   start++;
 retz:	      *target='\0';
 ret:	      return start;
 	    }
-	   if(*start=='\\')
+	   if(*start=='\\' && *(start + 1))
 	      *target++='\\',start++;
 	   hitspc=2;
 	   goto normal;					      /* normal word */
@@ -84,12 +84,11 @@ normal:	   *target++= *start++;
 	case '"':*target++=delim='"';start++;
       }
      ;{ int i;
-	do
+	while(*start)
 	   if((i= *target++= *start++)==delim)	 /* corresponding delimiter? */
 	      break;
 	   else if(i=='\\'&&*start)		    /* skip quoted character */
 	      *target++= *start++;
-	while(*start);						/* anything? */
       }
      hitspc=2;
    }
@@ -104,7 +103,7 @@ void loadsaved(sp)const struct saved*const sp;	     /* load some saved text */
 }
 							    /* append to buf */
 void loadbuf(text,len)const char*const text;const size_t len;
-{ if(buffilled+len>buflen)			  /* buf can't hold the text */
+{ while(buffilled+len>buflen)			  /* buf can't hold the text */
      buf=realloc(buf,buflen+=Bsize);
   tmemmove(buf+buffilled,text,len);buffilled+=len;
 }
@@ -115,7 +114,7 @@ void loadchar(c)const int c;		      /* append one character to buf */
   buf[buffilled++]=c;
 }
 
-int Getline P((void))			   /* read a newline-terminated line */
+int procmail_getline P((void))			   /* read a newline-terminated line */
 { if(buflast==EOF)			 /* at the end of our Latin already? */
    { loadchar('\n');					  /* fake empty line */
      return EOF;					  /* spread the word */
@@ -183,10 +182,10 @@ void startprog(argv)const char*Const*const argv;
 		 retval=excode;
 	    }					       /* reap some children */
 	while(childlimit&&children>=childlimit||(child=fork())==-1&&children)
-	   for(--children;(excode=waitfor((pid_t)0))!=NO_PROCESS;)
+	   for(--children;(excode=waitfor((pid_t)0))!=NO_PROCESS;--children)
 	    { if(excode!=EXIT_SUCCESS)
 		 retval=excode;
-	      if(--children<=maxchild)
+	      if(children<=maxchild)
 		 break;
 	    }
       }

@@ -205,7 +205,7 @@ int writefolder(boxname,linkfolder,source,len,ignwerr,dolock)
   if(linkfolder)		    /* any additional directories specified? */
    { size_t blen;
      if(blen=Tmnate-linkfolder)		       /* copy the names into safety */
-	Tmnate=(linkfolder=tmemmove(malloc(blen),linkfolder,blen))+blen;
+	Tmnate=(linkfolder=tmemmove(malloc(blen+1),linkfolder,blen))+blen;
      else
 	linkfolder=0;
    }
@@ -378,7 +378,8 @@ void readmail(rhead,tobesent)const long tobesent;
 	dfilled=mailread=0;
      else if(rhead)				/* only read in a new header */
       { memblk new;
-	dfilled=mailread=0;makeblock(&new,0);readdyn(&new,&dfilled,0);
+	dfilled=mailread=0;makeblock(&new,0);
+	readdyn(&new,&dfilled,thebody-themail.p);
 	if(tobesent>dfilled&&isprivate)		     /* put it in place here */
 	 { tmemmove(themail.p+dfilled,thebody,filled-=tobesent);
 	   tmemmove(themail.p,new.p,dfilled);

@@ -89,7 +89,7 @@
 #	#define NOfcntl_lock
 #Ok	#define USElockf
 #Ok	#define USEflock
-#Ok	#define MAILSPOOLDIR "/var/spool/mail/"
+#Ok	#define MAILSPOOLDIR "/var/mail/"
 #Ok	#define SENDMAIL "/usr/sbin/sendmail"
 #	#define buggy_SENDMAIL
 #	#define DEFflagsendmail ""
@@ -1416,14 +1416,14 @@ _autotst >>$ACONF
 
 found=no
 
-for a in /var/spool/mail /usr/spool/mail /var/mail /usr/mail /spool/mail
+for a in /var/mail /var/spool/mail /usr/spool/mail /usr/mail /spool/mail
 do
   test -d $a -a $found != yes &&
    echo '#define MAILSPOOLDIR "'$a'/"' >>$ACONF && found=yes
 done
 if test $found != yes
 then
- echo '#define MAILSPOOLDIR "/var/spool/mail/"' >>$ACONF
+ echo '#define MAILSPOOLDIR "/var/mail/"' >>$ACONF
  echo Could not find the system-mailbox directory, supplied default.
 fi
 
@@ -1470,15 +1470,14 @@ cat /usr/lib/sendmail.cf /etc/sendmail.cf /etc/mail/sendmail.cf 2>$DEVNULL |
  grep 'Mlocal.*procmail' >$DEVNULL ||
  echo '#define CF_no_procmail_yet' >>$ACONF
 
-cat /usr/lib/sendmail.cf /etc/sendmail.cf /etc/mail/sendmail.cf 2>$DEVNULL |
- grep '^V' >$DEVNULL ||
- echo '#define buggy_SENDMAIL' >>$ACONF
+# cat /usr/lib/sendmail.cf /etc/sendmail.cf /etc/mail/sendmail.cf 2>$DEVNULL |
+#  grep '^V' >$DEVNULL ||
+#  echo '#define buggy_SENDMAIL' >>$ACONF
 
 lpath='/bin'
 bins="/bin"
 
-for newd in /usr/bin /usr/ucb /usr/5bin $BINDIR /local/bin /usr/local/bin \
- /global/bin /usr/bin/X11 /usr/X*/bin
+for newd in /usr/bin $BINDIR /usr/bin/X11 /usr/X*/bin
 do
   if test -d $newd
   then

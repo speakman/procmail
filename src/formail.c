@@ -43,8 +43,6 @@ static const char
 
 char *charset;
 
-int decode_header(char*, char*,int);
-
 static const struct {const char*hedr;int lnr;}cdigest[]=
 {
 #define X(name,value)	bsl(name),
@@ -223,7 +221,7 @@ static char*getsender(namep,fldp,headreply)char*namep;struct field*fldp;
   if(i>=0&&(i!=maxindex(sest)||fldp==rdheader))		  /* found anything? */
    { char*saddr;char*tmp;			     /* determine the weight */
      nowm=areply&&headreply?headreply==1?sest[i].wrepl:sest[i].wrrepl:i;chp+=j;
-     tmp=malloc(j=fldp->Tot_len-j);tmemmove(tmp,chp,j);(chp=tmp)[j-1]='\0';
+     tmp=malloc((j=fldp->Tot_len-j) + 1);tmemmove(tmp,chp,j);(chp=tmp)[j-1]='\0';
      if(sest[i].head==From_)
       { char*pastad;
 	if(strchr(saddr=chp,'\n'))		     /* multiple From_ lines */
@@ -373,8 +371,8 @@ int main(lastm,argv)int lastm;const char*const argv[];
   long maxlen,ctlength;FILE*idcache=0;pid_t thepid;
   size_t j,lnl,escaplen;char*chp,*namep,*escap=ESCAP;
   struct field*fldp,*fp2,**afldp,*fdate,*fcntlength,*fsubject,*fFrom_;
-  if(lastm)			       /* sanity check, any argument at all? */
   charset = NULL;
+  if(lastm)			       /* sanity check, any argument at all? */
 #define Qnext_arg()	if(!*chp&&!(chp=(char*)*++argv))goto usg
      while(chp=(char*)*++argv)
       { if((lastm= *chp++)==FM_SKIP)
@@ -765,9 +763,9 @@ startover:
 	lputssn(buf,buffilled),ctlength-=buffilled,buffilled=lnl=0;
      ;{ int tbl=buflast,lwr='\n';
 	while(--ctlength>=0&&tbl!=EOF)	       /* skip Content-Length: bytes */
-	   lnl=lwr==tbl&&lwr=='\n',putcs(lwr=tbl),tbl=getchar();
+	   lnl=lwr==tbl&&lwr=='\n',lputcs(lwr=tbl),tbl=getchar();
 	if((buflast=tbl)=='\n'&&lwr!=tbl)	/* just before a line break? */
-	   putcs('\n'),buflast=getchar();		/* wrap up loose end */
+	   lputcs('\n'),buflast=getchar();		/* wrap up loose end */
       }
      if(!quiet&&ctlength>0)
       { charNUM(num,ctlength);
@@ -826,7 +824,7 @@ splitit:       { if(!lnl)   /* did the previous mail end with an empty line? */
       { if(split)		       /* gobble up the next start separator */
 	 { buffilled=0;
 #ifdef sMAILBOX_SEPARATOR
-	   Getline();buffilled=0;		 /* but only if it's defined */
+	   procmail_getline();buffilled=0;		 /* but only if it's defined */
 #endif
 	   if(buflast!=EOF)					   /* if any */
 	      goto splitit;

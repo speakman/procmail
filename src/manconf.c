@@ -233,7 +233,7 @@ a security violation was found (e.g. \1.B \2-@PRESERVOPT@\1or variable\
  \2-@PRESERVOPT@\1and\1.BR \2-@FROMWHOPT@ .\1");
   pc("LMTPOPT",LMTPOPT);
 #else
-  ps("LMTPOPTdesc","");ps("LMTPusage","");
+  ps("LMTPOPTdesc","");ps("LMTPusage","\1");
 #endif
   pname("INIT_UMASK",0);printf("0%lo/g\n",(unsigned long)INIT_UMASK);lines--;
   pn("DEFlinebuf",DEFlinebuf);
@@ -333,7 +333,6 @@ a security violation was found (e.g. \1.B \2-@PRESERVOPT@\1or variable\
   pc("FM_EVERY",FM_EVERY);
   pc("FM_MINFIELDS",FM_MINFIELDS);
   pn("DEFminfields",DEFminfields);
-  pc("FM_MIMEDECODE",FM_MIMEDECODE);
   pc("FM_DIGEST",FM_DIGEST);
   pc("FM_BABYL",FM_BABYL);
   pc("FM_QUIET",FM_QUIET);
@@ -347,6 +346,7 @@ a security violation was found (e.g. \1.B \2-@PRESERVOPT@\1or variable\
   pc("FM_FIRST_UNIQ",FM_FIRST_UNIQ);
   pc("FM_LAST_UNIQ",FM_LAST_UNIQ);
   pc("FM_ReNAME",FM_ReNAME);
+  pc("FM_MIMEDECODE",FM_MIMEDECODE);
   pc("FM_VERSION",FM_VERSION);
   pn("EX_OK",EXIT_SUCCESS);
   ps("PM_VERSION",PM_VERSION);
@@ -360,6 +360,10 @@ a security violation was found (e.g. \1.B \2-@PRESERVOPT@\1or variable\
    " (or if procmail is already running with the recipient's euid and egid)");
   if(lines<20)lines=0;				  /* make sure we have space */
   pname("AUTHORS",1);putchar('c');
+
+#if 0
+no more mailing list info
+
   p=strchr(pm_version,'\n')+1;
   while(*p!='\n')
    { char*q=strchr(p,',')+2;
@@ -371,7 +375,20 @@ a security violation was found (e.g. \1.B \2-@PRESERVOPT@\1or variable\
      p=q+1;
    }
   putchar('\n');lines--;
-  ps("PM_MAILINGLIST",skltmark(2,&p));
+  ps("PM_MAILINGLIST", skltmark(2,&p));
   ps("PM_MAILINGLISTR",skltmark(2,&p));
+#endif
+  printf("\\\nStephen R. van den Berg\\\n");
+  printf(".RS\\\n");
+  printf("<srb@cuci.nl>\\\n");
+  printf(".RE\\\n");
+  printf("Philip A. Guenther\\\n");
+  printf(".RS\\\n");
+  printf("<guenther@sendmail.com>\\\n");
+  printf(".RE\\\n");
+  printf(".\n");
+  putchar('\n');
+  ps("PM_MAILINGLIST", "mailing list defunct"); /* skltmark(2,&p) */
+  ps("PM_MAILINGLISTR","mailing list defunct"); /* skltmark(2,&p) */
   return EXIT_SUCCESS;
 }

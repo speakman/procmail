@@ -175,7 +175,7 @@ MIME words. The MIME word standard is defined in RFC 2047 as a way to
 embed non-ASCII content in a seven-bit safe way in headers, it uses
 blocks which look like
 .I =?CHARSET?B?BASE64DATA?=
-and 
+and
 .I =?CHARSET?Q?QP_DATA?=
 with base-64 or quoted-printable content. Since real world usage
 sometimes has US-ASCII MIME word blocks, and since US-ASCII is a
@@ -374,7 +374,6 @@ sed \-e '1,/^$/ d'
 .na
 .nh
 .BR mail (1),
-.BR binmail (1),
 .BR sendmail (8),
 .BR procmail (1),
 .BR sed (1),

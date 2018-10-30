@@ -16,9 +16,7 @@ static /*const*/char rcsid[]=
 #include "fields.h"
 #include "ecommon.h"
 #include "formisc.h"
-
 extern char *charset;
-
 				/* find a field in the linked list of fields */
 struct field*findf(p,ah)const struct field*const p;register struct field**ah;
 { size_t i;int uhead;char*chp;register struct field*h;
@@ -113,23 +111,23 @@ void dispfield(p)register const struct field*p;
 		    /* try and append one valid field to rdheader from stdin */
 int readhead P((void))
 { int idlen;
-  Getline();
+  procmail_getline();
   if((idlen=breakfield(buf,buffilled))<=0) /* not the start of a valid field */
      return 0;
   if(idlen==STRLEN(FROM)&&eqFrom_(buf))			/* it's a From_ line */
    { if(rdheader)
 	return 0;			       /* the From_ line was a fake! */
-     for(;buflast=='>';Getline());	    /* gather continued >From_ lines */
+     for(;buflast=='>';procmail_getline());	    /* gather continued >From_ lines */
    }
   else
-     for(;;Getline())		      /* get the rest of the continued field */
+     for(;;procmail_getline())		      /* get the rest of the continued field */
       { switch(buflast)			     /* will this line be continued? */
 	 { case ' ':case '\t':				  /* yep, it sure is */
 	      continue;
 	 }
 	break;
       }
-  buf[buffilled] = 0;	/* null termination is cool, yo */
+  buf[buffilled] = 0;   /* null termination is cool, yo */
   if(charset && (decode_header(buf, charset, buffilled) > 0)) {
     char *walk = buf;
     int size = 0;

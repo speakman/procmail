@@ -112,7 +112,7 @@ mailfold.$(O): variables.h locking.h mailfold.h memblk.h from.h
 
 mcommon.$(O): ../autoconf.h ../config.h includes.h mcommon.h
 
-mime.$(O): ../autoconf.h ../config.h
+# mime.$(O) no dependencies
 
 memblk.$(O): ../autoconf.h ../config.h includes.h procmail.h shell.h
 memblk.$(O): exopen.h memblk.h

@@ -588,7 +588,10 @@ to @COMSATservice@@SERV_ADDRsep@@COMSAThost@.@DROPPRIVS@
 The following tokens are known to both the procmail internal egrep and the
 standard
 .BR egrep (1)
-(beware that some egrep implementations include other non-standard extensions):
+(beware that some egrep implementations include other non-standard
+extensions; in particular, the repetition operator
+.B {
+is not supported by procmail's egrep):
 .TP 1.0i
 .B ^
 Start of a line.
@@ -706,7 +709,6 @@ lost.
 .BR csh (1),
 .BR mail (1),
 .BR mailx (1),
-.BR binmail (1),
 .BR uucp (1),
 .BR aliases (5),
 .BR sendmail (8),
@@ -779,7 +781,7 @@ one trailing newline will be stripped.
 .PP
 Some non-optimal and non-obvious regexps set MATCH to an incorrect
 value.  The regexp can be made to work by removing one or more unneeded
-'*', '+', or '?' operator on the left-hand side of the \e/ token.
+\&'*', '+', or '?' operator on the left-hand side of the \e/ token.
 .SH MISCELLANEOUS
 If the regular expression contains `\fB@TO_key@\fP' it will be substituted by
 .na

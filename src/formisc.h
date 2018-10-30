@@ -17,4 +17,4 @@ void
 char*
  skipwords P((char*start));
 int
- Getline P((void));
+ procmail_getline P((void));

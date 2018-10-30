@@ -33,8 +33,8 @@
  * override those settings you should uncomment and possibly change the
  * DEFSPATH and DEFPATH defines below
  */
-/*#define DEFSPATH	"PATH=/bin:/usr/bin"			/* */
-/*#define DEFPATH	"PATH=$HOME/bin:/bin:/usr/bin"		/* */
+#define DEFSPATH "PATH=/usr/local/bin:/usr/bin:/bin"			/* */
+#define DEFPATH  "PATH=$HOME/bin:/usr/local/bin:/usr/bin:/bin"		/* */
 
 /* every environment variable appearing in PRESTENV will be set or wiped
  * out of the environment (variables without an '=' sign will be thrown
@@ -46,7 +46,7 @@
  */
 #define PRESTENV	{"IFS","ENV","PWD",0}
 
-/*#define GROUP_PER_USER			/* uncomment this if each
+#define GROUP_PER_USER			/* uncomment this if each
 						   user has his or her own
 	group and procmail can therefore trust a $HOME/.procmailrc that
 	is group writable or contained in a group writable home directory
@@ -98,7 +98,7 @@
 	mail present.  procmail automatically suppresses this when it isn't
 	needed or under heavy load. */
 
-/*#define DEFsendmail	"/usr/sbin/sendmail"	/* uncomment and/or change if
+#define DEFsendmail	"/usr/sbin/sendmail"	/* uncomment and/or change if
 						   the autoconfigured default
 	SENDMAIL is not suitable.  This program should quack like a sendmail:
 	it should accept the -oi flag (to tell it to _not_ treat a line
@@ -132,6 +132,15 @@
 	in the "logfile"; only recommended for debugging purposes, if you have
 	trouble creating a "logfile" or suspect that the trouble starts before
 	procmail can interpret any rcfile or arguments. */
+
+#undef NO_COMSAT
+#undef UDP_protocolno
+#undef BIFF_serviceport
+#undef IP_localhost
+
+#define UDP_protocolno 17
+#define BIFF_serviceport "512"
+#define IP_localhost {127,0,0,1}
 
 /************************************************************************
  * Only edit below this line if you *think* you know what you are doing *
@@ -359,7 +368,7 @@ MMGR)\
 #define FM_FIRST_UNIQ	'u'		    /* preserve the first occurrence */
 #define FM_LAST_UNIQ	'U'		     /* preserve the last occurrence */
 #define FM_ReNAME	'R'				   /* rename a field */
-#define FM_MIMEDECODE	'M'				/* decode MIME words */
+#define FM_MIMEDECODE   'M'                             /* decode MIME words */
 #define FM_VERSION	VERSIONOPT		/* option to display version */
 #define FM_USAGE	"\
 Usage: formail [-vbczfrktqY] [-D nnn idcache] [-p prefix] [-l folder]\n\
